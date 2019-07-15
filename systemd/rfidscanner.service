@@ -1,0 +1,11 @@
+[Unit]
+Description=RFID Scanner
+After=network.target sound.target
+
+[Service]
+User=elmabox
+ExecStart=/usr/bin/rfidscanner
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

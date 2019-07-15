@@ -1,0 +1,13 @@
+[Unit]
+Description=MOC server
+ConditionPathExists=/usr/bin/mocp
+After=network.target sound.target
+
+[Service]
+RemainAfterExit=yes
+User=elmabox
+ExecStart=/usr/bin/mocp -S
+ExecStop=/usr/bin/mocp -x
+
+[Install]
+WantedBy=multi-user.target
