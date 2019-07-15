@@ -1,0 +1,50 @@
+use strict;
+use warnings;
+
+use Config;
+use IO::File;
+use IO::Select;
+
+my $struct_len = ( $Config{longsize} * 2 ) + # input_event.time (struct timeval)
+  ( $Config{i16size} * 2 ) +    # input_event.type, input_event.code
+  ( $Config{i32size} );         # input_event.value
+
+my %codes = (
+    '2'  => 1,
+    '3'  => 2,
+    '4'  => 3,
+    '5'  => 4,
+    '6'  => 5,
+    '7'  => 6,
+    '8'  => 7,
+    '9'  => 8,
+    '10' => 9,
+    '11' => 0,
+);
+
+my $handler = $ARGV[0];
+
+my $fh       = IO::File->new( $ARGV[1], '<' );
+my $selector = IO::Select->new($fh);
+
+my @ev;
+
+while ( my ($fh) = $selector->can_read() ) {
+    my $buffer;
+    my $len = sysread( $fh, $buffer, $struct_len );
+    my ( $sec, $usec, $type, $code, $value ) = unpack( 'L!L!S!S!i!', $buffer );
+    next if $value != 1 || $type != 1;
+    if ( exists $codes{$code} ) {
+        push @ev, $codes{$code};
+    }
+    elsif ( $code == 28 ) {
+        my $num = join( '', @ev );
+        system( $handler, $num );
+        @ev = ();
+    }
+    else {
+        warn "Unknown key code $code\n";
+    }
+}
+
+exit 0

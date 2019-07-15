@@ -1,0 +1,19 @@
+#/bin/sh
+
+echo $1
+
+switch_album () {
+	mocp --clear
+	mocp --stop
+	mocp --append "$@"
+	mocp --play
+}
+
+case $1 in
+	0014584950 )
+		switch_album "/media/auto/mpd-disk/Robinson Crusoe/"
+	;;
+	0014538525 )
+		switch_album "/media/auto/mpd-disk/Jim Knopf und die Wilde 13"
+	;;
+esac

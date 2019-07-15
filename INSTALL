@@ -1,0 +1,7 @@
+$ apt-get install moc autofs
+$ cat /etc/auto.master.d
+/media/auto /etc/auto.media --timeout=60
+$ cat /etc/auto.media
+music -fstype=auto :/dev/music-disk
+$ cat /etc/udev/rules.d/10-mpd.rules
+KERNEL=="sd?1",SYMLINK+="music-disk"
