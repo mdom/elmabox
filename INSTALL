@@ -1,3 +1,5 @@
+$ adduser --system elmabox
+$ adduser elmabox audio input
 $ apt-get install moc autofs
 $ cat /etc/auto.master.d
 /media/auto /etc/auto.media --timeout=60
