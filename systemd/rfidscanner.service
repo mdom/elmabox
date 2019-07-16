@@ -4,7 +4,8 @@ After=network.target sound.target
 
 [Service]
 User=elmabox
-ExecStart=/usr/bin/rfidscanner
+ExecStart=/usr/local/bin/rfidscanner
+EnvironmentFile=/etc/rfidscanner.conf
 Restart=on-failure
 
 [Install]

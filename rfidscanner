@@ -22,9 +22,9 @@ my %codes = (
     '11' => 0,
 );
 
-my $handler = $ARGV[0];
+my $handler = $ENV{HANDLER};
 
-my $fh       = IO::File->new( $ARGV[1], '<' );
+my $fh       = IO::File->new( $ENV{DEVICE}, '<' );
 my $selector = IO::Select->new($fh);
 
 my @ev;
