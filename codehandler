@@ -1,17 +1,20 @@
 #/bin/sh
 
-echo $1
-
 switch_album () {
 	mocp --clear --stop
 	mocp --append "/media/auto/music/$1" --play
 }
 
 case $1 in
-	0014584950 )
-		switch_album "/media/auto/mpd-disk/Robinson Crusoe/"
-	;;
-	0014538525 )
-		switch_album "/media/auto/mpd-disk/Jim Knopf und die Wilde 13"
-	;;
+	0001818359 ) switch_album "Robinson Crusoe"              ;;
+	0001819316 ) switch_album "Jim Knopf und die Wilde 13"   ;;
+	0001785269 ) switch_album "Lieder aus dem Kinderland"    ;;
+	0001811676 ) switch_album "Ritterburg und Zauberschwert" ;;
+	0001807662 ) switch_album "Drachenreiter" ;;
+	0001815138 ) switch_album "Kein Keks Fuer Kobolde" ;;
+	0001793703 ) mocp --next ;;
+	0001811861 ) mocp --previous ;;
+	0001806530 ) mocp --toggle-pause ;;
+	0001815634 ) sudo shutdown -h now ;;
+	*          ) printf "Unknown code $1\n" >&2
 esac
