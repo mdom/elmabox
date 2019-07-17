@@ -3,10 +3,8 @@
 echo $1
 
 switch_album () {
-	mocp --clear
-	mocp --stop
-	mocp --append "$@"
-	mocp --play
+	mocp --clear --stop
+	mocp --append "/media/auto/music/$1" --play
 }
 
 case $1 in
